@@ -1,11 +1,15 @@
-
+import {Header} from "./components/header"
+import {ChatRoom} from "./components/chatroom"
 
 function App() {
   
 
   return (
     <>
-<div className="text-2xl text-green-500 text-center">Ai Doctor</div>
+    <div className="">
+     <Header/>
+     <ChatRoom/>
+     </div>
     </>
   )
 }
