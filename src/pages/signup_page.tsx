@@ -1,5 +1,5 @@
 import {Formik,Form,Field,ErrorMessage} from "formik"
-
+import {useSignup} from "../hooks/signup"
 
 type Values = {
   name:string,
@@ -16,7 +16,7 @@ const initialValues:Values = {
 
 const Signup_page = ()=>{
     
-   
+   const {register} = useSignup()
    
   return(
     <> 
@@ -40,14 +40,8 @@ const Signup_page = ()=>{
     }} 
     
     onSubmit={async (values, { setSubmitting }) => {
-  await fetch('http://localhost:2567/api/user/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(values),
-  });
-
+  
+     register(values)
   setSubmitting(false);
 }}
 >
