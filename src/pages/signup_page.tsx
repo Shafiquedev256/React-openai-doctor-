@@ -16,7 +16,6 @@ const initialValues:Values = {
 }
 
 const Signup_page = ()=>{
-    
    const {register} = useUser()
    
   return(
@@ -42,8 +41,8 @@ const Signup_page = ()=>{
     
     onSubmit={async (values, { setSubmitting }) => {
   
-     register(values)
-  setSubmitting(false);
+     register(values);
+       setSubmitting(false);
 }}
 >
     {

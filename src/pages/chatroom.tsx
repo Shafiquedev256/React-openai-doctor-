@@ -1,5 +1,6 @@
-import {useFetch} from "../hooks/fetchHook"
-import {Header} from "../components/header"
+import {useSend} from "../hooks/sendMessageHook.tsx"
+import {Header} from "../components/header" 
+import {useState} from "react"
 
 type Message = {
   role:string,
@@ -7,12 +8,20 @@ type Message = {
 }
 
 export const ChatRoom = ()=>{
-  
-  const {msges,sendMessage,message,
-    setMessage}=useFetch()
+  const [message, setMessage]=useState("")
+  const {messages,send}=useSend() 
+    let thread = "" 
+    let name = ""
+    let email = ""
+const userInLocalStorage = localStorage.getItem("_user_details"); 
+  if(userInLocalStorage){
+    thread=JSON.parse(userInLocalStorage).thread
+  name=JSON.parse(userInLocalStorage).name
+email=JSON.parse(userInLocalStorage).email
+  } 
   
   const handleClick = ()=>{
-    sendMessage({role:"user",message}) 
+    send({messageEl:message,thread,name,email}) 
     setMessage("")
   }
   
@@ -22,9 +31,9 @@ export const ChatRoom = ()=>{
     <div className="w-screen h-screen overflow-x-hidden overflow-y-scroll p-3"> 
     <div className="w-screen p-8"></div>
   {
-  msges().length>0&&(msges().map((msg:Message)=>(
+  messages.length>0&&(messages.map((msg:Message)=>(
   <div className="bg-gray-100 w-fit p-3 ml-3 rounded my-1 flex flex-col max-w-[96%]"> 
-  <span className="font-bold text-xs w-fit h-fit">{msg.role}</span>
+  <span className="font-bold text-xs w-fit h-fit">{msg.role }</span>
   <span>{msg.message}</span>
   </div>
   )))

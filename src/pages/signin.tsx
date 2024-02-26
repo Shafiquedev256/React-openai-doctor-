@@ -1,5 +1,4 @@
 import {Link} from "react-router-dom" 
-import {userAuth} from "../context/userAuth"
 import {Formik,Form,Field,ErrorMessage} from "formik"
 
 
@@ -15,13 +14,10 @@ const initialValues:Values = {
 }
 
 const Signin_page = ()=>{
-    
-const {islogedIn} = userAuth()
    
   return(
     <> 
     <div className="flex flex-col  justify-center  items-center md:bg-gray-100  md:bg-opacity-60  h-screen"> 
-    {JSON.stringify(islogedIn)}
     <Formik 
     initialValues={initialValues}
     validate={(values:Values)=>{
@@ -60,7 +56,7 @@ const {islogedIn} = userAuth()
         <Field type="text" name="password" className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-blue-500 my-1"/>
         <ErrorMessage name="password" component="div" className="text-red-500 text-sm font-bold"/> 
         
-        <button type="submit" disabled={isSubmitting} className="bg-green-600 text-white w-full py-2 rounded hover:bg-opacity-60 focus:outline-none mt-4 mb-2">Register</button>  <div className="mt-4 text-center">
+        <button type="submit" disabled={isSubmitting} className="bg-green-600 text-white w-full py-2 rounded hover:bg-opacity-60 focus:outline-none mt-4 mb-2">Sign in</button>  <div className="mt-4 text-center">
           <p className="text-sm text-gray-700">
             Don't have account ? {'  '}
             <Link to="/signup" className="text-blue-500">
