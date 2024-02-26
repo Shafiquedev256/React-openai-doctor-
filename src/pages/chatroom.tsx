@@ -1,5 +1,5 @@
 import {useFetch} from "../hooks/fetchHook"
-
+import {Header} from "../components/header"
 
 type Message = {
   role:string,
@@ -17,7 +17,8 @@ export const ChatRoom = ()=>{
   }
   
   return(
-    <>
+    <> 
+    <Header/>
     <div className="w-screen h-screen overflow-x-hidden overflow-y-scroll p-3"> 
     <div className="w-screen p-8"></div>
   {
