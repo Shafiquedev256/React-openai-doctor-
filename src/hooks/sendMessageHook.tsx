@@ -1,5 +1,5 @@
 import axios from "axios" 
-import {useState} from "react"
+import {useState,useEffect} from "react"
 
 type User = {
 name: string,
@@ -13,10 +13,22 @@ type Response = {
 }
 
 export const useSend = ()=>{
-  const [messages, setMessages]=useState<Response[]>({}as Response[])
+  const [messages, setMessages]=useState<Response[]>({}as Response[])  
+  
+  useEffect(()=>{
+  const oldMessages = localStorage.getItem("oldmessages");
+  if(oldMessages){
+    setMessages(JSON.parse(oldMessages))
+  }
+  },[])
+
 const send = (user:User)=>{
 axios.post(import.meta.env.VITE_SEND,user)
-.then(json=>setMessages(json.data))
+.then(json=>{
+  const reverseData = json.data.slice().reverse(); 
+  setMessages(reverseData)
+  localStorage.setItem("oldmessages",JSON.stringify(reverseData))
+})
   } 
   
   return {messages,send}
