@@ -1,5 +1,6 @@
 import axios from "axios" 
-import {useState,useEffect} from "react"
+import {useState,useEffect} from "react";
+import {Loader} from "../components/loader"
 
 type User = {
 name: string,
@@ -13,7 +14,10 @@ type Response = {
 }
 
 export const useSend = ()=>{
-  const [messages, setMessages]=useState<Response[]>({}as Response[])  
+  const [messages, setMessages]=useState<Response[]>({}as Response[]);
+  const [userMessage,setUsermessage]=useState("")
+  const [loading,setLoading]=useState(false);
+  
   
   useEffect(()=>{
   const oldMessages = localStorage.getItem("oldmessages");
@@ -22,15 +26,24 @@ export const useSend = ()=>{
   }
   },[])
 
-const send = (user:User)=>{
+const send = (user:User)=>{ 
+  setLoading(true);
 axios.post(import.meta.env.VITE_SEND,user)
 .then(json=>{
   const reverseData = json.data.slice().reverse(); 
   setMessages(reverseData)
   localStorage.setItem("oldmessages",JSON.stringify(reverseData))
 })
-  } 
+.finally(()=>{setLoading(false)})
+  }  
   
-  return {messages,send}
+  const messageLoader = ()=>{
+    if(loading){
+      return (<Loader message={userMessage} />);
+      return (<></>)
+    }
+  }
+  
+  return {messages,send,messageLoader,setUsermessage}
 }
 

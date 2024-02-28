@@ -19,7 +19,7 @@ export const useUser = ()=>{
 axios.post(import.meta.env.VITE_SIGNUP,info)
 .then(json=>{
   localStorage.setItem("_user_details",JSON.stringify(json.data));
- navigate("/sigin")
+ navigate("/",{replace: true})
 })
   }  
   

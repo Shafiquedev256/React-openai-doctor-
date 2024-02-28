@@ -9,7 +9,7 @@ type Message = {
 
 export const ChatRoom = ()=>{
   const [message, setMessage]=useState("")
-  const {messages,send}=useSend() 
+  const {messages,send,messageLoader,setUsermessage}=useSend() 
     let thread = "" 
     let name = ""
     let email = ""
@@ -22,6 +22,7 @@ email=JSON.parse(userInLocalStorage).email
   
   const handleClick = ()=>{
     send({messageEl:message,thread,name,email}) 
+    setUsermessage(message)
     setMessage("")
   }
   
@@ -38,6 +39,8 @@ email=JSON.parse(userInLocalStorage).email
   </div>
   )))
   }
+
+  {messageLoader()}
   
     <div className="w-screen p-9"></div>
     <div className="fixed bottom-0 w-screen p-2 bg-gray-100 left-0">
